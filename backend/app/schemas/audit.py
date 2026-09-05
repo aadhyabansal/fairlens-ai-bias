@@ -31,3 +31,20 @@ class AuditResult(BaseModel):
     target_column: str
     overall_accuracy: float
     metrics_by_attribute: list[FairnessMetrics]
+
+class MitigationResult(BaseModel):
+    technique: str  # "threshold_optimizer" or "exponentiated_gradient"
+    constraint: str  # "demographic_parity" or "equalized_odds"
+    original_metrics: FairnessMetrics
+    mitigated_metrics: FairnessMetrics
+    original_accuracy: float
+    mitigated_accuracy: float
+    accuracy_cost: float  # original_accuracy - mitigated_accuracy
+
+
+class MitigationRequest(BaseModel):
+    dataset_path: str
+    target_column: str
+    sensitive_attribute: str  # single attribute — mitigation techniques constrain on ONE at a time
+    technique: str  # "threshold_optimizer" or "exponentiated_gradient"
+    constraint: str = "demographic_parity"  # or "equalized_odds"
