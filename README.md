@@ -2,7 +2,7 @@
 
 A full-stack platform to measure, flag, and fix hidden bias in datasets and ML models.
 
-## Status: In active development (Phase 1 complete)
+## Status: In active development (Phase 3 complete)
 
 ## Architecture
 - **Backend**: FastAPI + Fairlearn (bias detection engine)
