@@ -6,3 +6,5 @@ pydantic==2.8.2
 pytest==8.3.2
 requests==2.32.3
 sentence-transformers==3.0.1
+google-genai==2.22.0
+python-dotenv==1.0.1
