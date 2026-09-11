@@ -8,3 +8,6 @@ requests==2.32.3
 sentence-transformers==3.0.1
 google-genai==2.22.0
 python-dotenv==1.0.1
+fastapi==0.115.0
+uvicorn==0.30.6
+python-multipart==0.0.9
