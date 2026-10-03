@@ -74,7 +74,7 @@ def audit_history(db: Session = Depends(get_db)):
             "dataset_path": r.dataset_path,
             "target_column": r.target_column,
             "overall_accuracy": r.overall_accuracy,
-            "created_at": r.created_at.isoformat(),
+            "created_at": r.created_at.isoformat() + "Z",
         }
         for r in runs
     ]
