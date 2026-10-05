@@ -40,6 +40,8 @@ def _extract_numbers_from_text(text: str) -> set[float]:
 
 
 def _build_prompt(audit_json: dict, context: str) -> str:
+    rounded_json = _round_for_display(audit_json, decimals=3)
+
     return f"""You are a fairness audit report generator. You will be given
 structured JSON output from a bias detection engine. Your job is to explain
 the findings in plain language, grounded STRICTLY in the numbers provided.
@@ -56,7 +58,7 @@ CRITICAL RULES:
 Context: {context if context else "No additional context provided."}
 
 Audit JSON:
-{json.dumps(audit_json, indent=2)}
+{json.dumps(rounded_json, indent=2)}
 
 Respond with ONLY valid JSON matching this exact structure, no markdown fences,
 no preamble:
@@ -73,7 +75,21 @@ no preamble:
   ]
 }}"""
 
-
+def _round_for_display(obj, decimals=3):
+    """
+    Recursively rounds every float in a JSON-like structure, so the LLM
+    never sees (and can't cite) absurd floating-point precision like
+    0.32273468278.
+    """
+    if isinstance(obj, dict):
+        return {k: _round_for_display(v, decimals) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [_round_for_display(v, decimals) for v in obj]
+    elif isinstance(obj, float):
+        return round(obj, decimals)
+    else:
+        return obj
+    
 def _validate_findings(findings: list[dict], source_json: dict) -> tuple[bool, list[str]]:
     """
     Soft validation: for each finding, check that at least one number mentioned

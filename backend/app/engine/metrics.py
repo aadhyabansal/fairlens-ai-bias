@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from fairlearn.metrics import MetricFrame, selection_rate
 from sklearn.metrics import accuracy_score
 
@@ -47,13 +47,17 @@ def train_baseline(df: pd.DataFrame, target_column: str, sensitive_attributes: l
         X, y, df, test_size=0.3, random_state=random_state, stratify=y
     )
 
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
     model = LogisticRegression(max_iter=1000)
-    model.fit(X_train, y_train)
+    model.fit(X_train_scaled, y_train)
 
     return {
         "model": model,
-        "X_train": X_train,
-        "X_test": X_test,
+        "X_train": X_train_scaled,
+        "X_test": X_test_scaled,
         "y_train": y_train,
         "y_test": y_test,
         "df_test": df_test,
