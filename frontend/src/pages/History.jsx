@@ -27,7 +27,7 @@ export default function History() {
             className="border border-gray-200 rounded-lg p-4 bg-white flex items-center justify-between"
           >
             <div>
-              <p className="font-medium text-gray-900">{run.dataset_path}</p>
+              <p className="font-medium text-gray-900">{run.original_filename || run.dataset_path}</p>
               <p className="text-sm text-gray-500">
                 Target: {run.target_column} · Accuracy: {(run.overall_accuracy * 100).toFixed(1)}%
               </p>
