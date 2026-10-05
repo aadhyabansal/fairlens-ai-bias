@@ -11,7 +11,7 @@
 
 ## What it does
 
-FairLens audits a tabular classifier for demographic bias, lets you apply real mitigation techniques to reduce that bias, and generates a plain-language report explaining the findings  which are grounded *strictly* in the numbers the engine actually computed.
+FairLens audits a tabular classifier for demographic bias, lets you apply real mitigation techniques to reduce that bias, and generates a plain-language report explaining the findings  which are grounded **strictly** in the numbers the engine actually computed.
 
 1. **Measure** : upload a CSV, pick a target column and sensitive attribute(s). FairLens trains a baseline classifier and computes demographic parity difference, equalized odds difference, and disparate impact ratio per subgroup, using [Fairlearn](https://fairlearn.org/).
 2. **Flag** : results are visualized with per-group selection/error rates, and any metric past a recognized fairness threshold (e.g. the EEOC's 0.8 disparate impact rule) is flagged.
@@ -28,19 +28,19 @@ This also means the app degrades gracefully: if the LLM is fully unreachable, th
 
 ```
 ┌─────────────┐      ┌──────────────┐      ┌─────────────────────┐
-│   React     │─────▶│   FastAPI    │─────▶│  Fairlearn engine    │
-│  (Vercel)   │      │   (Render)   │      │  - audit (metrics)   │
-└─────────────┘      │              │      │  - mitigation        │
-                      │              │      │  - text bias (WEAT)  │
-                      │              │      └─────────────────────┘
-                      │              │
-                      │              │─────▶│  Gemini (evidence-   │
-                      │              │      │  constrained reports)│
-                      │              │      └─────────────────────┘
-                      │              │
-                      │              │─────▶│  PostgreSQL (Neon)   │
-                      └──────────────┘      │  audit/report history│
-                                             └─────────────────────┘
+│   React     │─────▶│   FastAPI    │─────▶│  Fairlearn engine   │
+│  (Vercel)   │      │   (Render)   │      │  - audit (metrics)  │
+└─────────────┘      │              │      │  - mitigation       │
+                     │              │      │  - text bias (WEAT) │
+                     │              │      └─────────────────────┘
+                     │              │      ┌──────────────────────┐
+                     │              │─────▶│  Gemini (evidence-   │
+                     │              │      │  constrained reports)│
+                     │              │      └──────────────────────┘
+                     │              │      ┌──────────────────────┐
+                     │              │─────▶│  PostgreSQL (Neon)   │
+                     └──────────────┘      │  audit/report history│
+                                           └──────────────────────┘
 ```
 
 ## Tech stack
