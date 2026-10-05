@@ -1,11 +1,23 @@
 # FairLens
 
-**A full-stack platform to measure, flag, and fix hidden bias in datasets and ML models.**
+**A full-stack platform to measure, flag, and fix hidden bias in datasets and the classifiers trained on them.**
 
 🔗 **Live app:** [fairlens-ai-bias.vercel.app](https://fairlens-ai-bias.vercel.app)
 🔗 **API:** [fairlens-ai-bias-zgxi.onrender.com/docs](https://fairlens-ai-bias-zgxi.onrender.com/docs)
 
 > First request may take 30–60s — the backend is hosted on Render's free tier, which spins down after ~15 minutes of inactivity.
+
+## Screenshots
+
+**Running an audit:**
+![New Audit](docs/screenshots/new-audit.png)
+
+**Results dashboard — real bias detected and flagged:**
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Evidence-constrained AI report — every finding cites a real computed metric:**
+![AI Report](docs/screenshots/report.png)
+
 
 ---
 
